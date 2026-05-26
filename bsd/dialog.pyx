@@ -463,7 +463,6 @@ class Dialog(object):
             #defs.dialog_state.output = kwargs.pop("output", defs.stdout)
             defs.dialog_state.input = defs.stdin
             defs.dialog_state.output = defs.stdout
-            defs.dialog_state.visit_items = 1
             
             self.ok_label = kwargs.pop("ok_label", None)
             self.no_label = kwargs.pop("no_label", None)
