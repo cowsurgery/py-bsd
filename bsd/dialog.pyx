@@ -600,24 +600,14 @@ class YesNo(Dialog):
             """
             Do all the work.
             """
-            _clear_dialog_state()
-            defs.dialog_state.input = defs.stdin
-            defs.dialog_state.output = defs.stdout
             defs.init_dialog(defs.dialog_state.input, defs.dialog_state.output)
             defs.dialog_state.visit_items = 1
-            defs.dialog_state.visit_cols = 1
-
-            # Re-apply labels after init_dialog in case it reset dialog_vars
-            if self.yes_label and self.yes_label != "Yes":
-                  tmp = self.yes_label.encode('utf-8')
-                  defs.dialog_vars.yes_label = strdup(tmp)
-            if self.no_label and self.no_label != "No":
-                  tmp = self.no_label.encode('utf-8')
-                  defs.dialog_vars.no_label = strdup(tmp)
+            defs.dlg_parse_bindkey("yesno TAB NEXT".encode('utf-8'))
+            defs.dlg_parse_bindkey("yesno RIGHT NEXT".encode('utf-8'))
+            defs.dlg_parse_bindkey("yesno LEFT PREV".encode('utf-8'))
 
             if self.default:
                   defs.dialog_vars.defaultno = False
-                  defs.dialog_vars.default_button = defs.DLG_EXIT_OK
             else:
                   defs.dialog_vars.defaultno = True
                   defs.dialog_vars.default_button = defs.DLG_EXIT_CANCEL
