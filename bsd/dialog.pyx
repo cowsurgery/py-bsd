@@ -600,18 +600,16 @@ class YesNo(Dialog):
             """
             Do all the work.
             """
-            defs.init_dialog(defs.dialog_state.input, defs.dialog_state.output)
-            defs.dialog_state.visit_items = 1
-            defs.dlg_parse_bindkey("yesno TAB NEXT".encode('utf-8'))
-            defs.dlg_parse_bindkey("yesno RIGHT NEXT".encode('utf-8'))
-            defs.dlg_parse_bindkey("yesno LEFT PREV".encode('utf-8'))
+            print("yes_label = {}, no_label = {}".format(
+                  self.yes_label, self.no_label))
 
             if self.default:
                   defs.dialog_vars.defaultno = False
             else:
                   defs.dialog_vars.defaultno = True
                   defs.dialog_vars.default_button = defs.DLG_EXIT_CANCEL
-
+                  
+            defs.init_dialog(defs.dialog_state.input, defs.dialog_state.output)
             rv = defs.dialog_yesno(self.title.encode("utf-8"),
                                    self.prompt.encode("utf-8"),
                                    self.height, self.width)
@@ -654,7 +652,6 @@ class MessageBox(Dialog):
                   self.width = len(self.title) + 10
 
             defs.init_dialog(defs.dialog_state.input, defs.dialog_state.output)
-            defs.dialog_state.visit_items = 1
             result = defs.dialog_msgbox(self.title.encode('utf-8'),
                                         self.prompt.encode('utf-8'),
                                         self.height, self.width, self.wait)
@@ -710,7 +707,6 @@ class Menu(Dialog):
                   self.menu_height = max(self.height - 5, 1)
 
             defs.init_dialog(defs.dialog_state.input, defs.dialog_state.output)
-            defs.dialog_state.visit_items = 1
             result = defs.dlg_menu(self.title.encode('utf-8'),
                                    self.prompt.encode('utf-8'),
                                    self.height, self.width, self.menu_height,
@@ -798,7 +794,6 @@ class CheckList(Dialog):
                   self.list_height = max(self.height - 5, 1)
                   
             defs.init_dialog(defs.dialog_state.input, defs.dialog_state.output)
-            defs.dialog_state.visit_items = 1
             result = defs.dlg_checklist(self.title.encode('utf-8'),
                                         self.prompt.encode('utf-8'),
                                         self.height, self.width, self.list_height,
@@ -859,7 +854,6 @@ class Gauge(Dialog):
             """
             global stupid_gauge
             defs.init_dialog(defs.dialog_state.input, defs.dialog_state.output)
-            defs.dialog_state.visit_items = 1
             # This is a hack as well
             defs.dialog_state.pipe_input = defs.fopen("/dev/null", "r")
             # was self._gauge
